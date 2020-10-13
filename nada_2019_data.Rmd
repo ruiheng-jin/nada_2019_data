@@ -1,0 +1,36 @@
+---
+title: "nada_2019_data"
+author: "Shelby Walsh"
+date: "10/13/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE, message = FALSE, warning = FALSE, echo = FALSE}
+rm(list = ls())
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(tidyverse)
+library(tidyr)
+library(janitor)
+library(kableExtra)
+library(car)
+library(devtools)
+library(broom)
+library(ggpubr)
+library(ggbeeswarm)
+library(RColorBrewer)
+library(effsize)
+library(stargazer)
+```
+
+```{r}
+meta_data_2019 <- read_csv("2019_vendor_invoice.csv") %>% 
+  clean_names()
+```
+
+```{r}
+clean_2019_data <- meta_data_2019 %>% 
+  select(vendor, receipt_id, item, unit, date, cost_unit, total_quantity, total_cost) %>% 
+  drop_na(item) %>% 
+  group_by(vendor)
+```
+
